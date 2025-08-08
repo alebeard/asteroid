@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Asteroids — Fullscreen Sprites</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-neon">
+  <div id="wrap">
+    <canvas id="game"></canvas>
+
+    <div class="hud">
+      <div class="line">Score: <span id="score">0</span></div>
+      <div class="line">Lives: <span id="lives">3</span></div>
+      <div class="line">Level: <span id="level">1</span></div>
+    </div>
+
+    <div class="toolbar">
+      <button id="btnFS" class="btn">⤢ Fullscreen</button>
+      <button id="btnMute" class="btn" aria-pressed="false">🔊</button>
+      <select id="theme" class="btn">
+        <option value="theme-neon" selected>Neon</option>
+        <option value="theme-amber">Amber</option>
+        <option value="">Classic</option>
+      </select>
+    </div>
+
+    <div class="tiny">Keys: ←/→ rotate, ↑ thrust, Space fire, Shift hyperspace</div>
+
+    <div class="leftpad">
+      <button class="btn" id="btnLeft" aria-label="Rotate Left">⟲</button>
+      <button class="btn" id="btnRight" aria-label="Rotate Right">⟳</button>
+    </div>
+    <div class="rightpad">
+      <button class="btn" id="btnThrust" aria-label="Thrust">▲</button>
+      <button class="btn" id="btnFire" aria-label="Fire">●</button>
+      <button class="btn" id="btnHyp" aria-label="Hyperspace">★</button>
+    </div>
+  </div>
+
+  <script type="module" src="sprites.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>

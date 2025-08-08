@@ -1,0 +1,10 @@
+# Node / tooling noise
+node_modules/
+dist/
+*.log
+.DS_Store
+Thumbs.db
+
+# OS / editor
+.vscode/
+.idea/
