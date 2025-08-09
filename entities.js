@@ -39,7 +39,20 @@ export class Asteroid{
     this.r = 50 * (sz/3); this.rot=rand(-1,1)*0.8; this.a=rand(0,TAU);
   }
   update(dt, W, H){ this.x=wrap(this.x+this.vx*dt,W); this.y=wrap(this.y+this.vy*dt,H); this.a+=this.rot*dt; }
-  draw(g){ const name=this.sz===3?'asteroid_big':this.sz===2?'asteroid_med':'asteroid_small'; drawSprite(g,name,this.x,this.y,this.a,1.0); }
+  draw(g){ 
+    // Draw filled circle behind the sprite for visibility
+    g.save();
+    g.fillStyle = '#808080'; // Light gray fill
+    g.globalAlpha = 0.4;
+    g.beginPath();
+    g.arc(this.x, this.y, this.r * 0.85, 0, TAU);
+    g.fill();
+    g.restore();
+    
+    // Draw the sprite on top
+    const name=this.sz===3?'asteroid_big':this.sz===2?'asteroid_med':'asteroid_small'; 
+    drawSprite(g,name,this.x,this.y,this.a,1.0); 
+  }
   split(){ return this.sz>1 ? [new Asteroid(this.x,this.y,this.sz-1), new Asteroid(this.x,this.y,this.sz-1)] : []; }
 }
 
