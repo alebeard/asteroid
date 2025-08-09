@@ -1,26 +1,24 @@
-/* Fullscreen, themes, and nicer UI */
-:root{
-  --bg: #000;
-  --fg: #fff;
-  --ui: rgba(255,255,255,.08);
-  --ui-border: rgba(255,255,255,.3);
-  --glow: 0 0 8px rgba(255,255,255,.35);
-}
-html, body { margin:0; height:100%; background:var(--bg); color:var(--fg); font-family:system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
-#wrap { position:fixed; inset:0; overflow:hidden; }
-canvas { display:block; width:100%; height:100%; touch-action:none; background: radial-gradient(ellipse at center, rgba(255,255,255,0.03), rgba(0,0,0,0) 60%); }
+/* Fullscreen + themes + overlay */ 
+:root{ --bg:#000; --fg:#fff; --ui:rgba(255,255,255,.08); --ui-border:rgba(255,255,255,.3); --glow:0 0 8px rgba(255,255,255,.35); }
+html,body{ margin:0; height:100%; background:var(--bg); color:var(--fg); font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; }
+#wrap{ position:fixed; inset:0; overflow:hidden; }
+canvas{ display:block; width:100%; height:100%; touch-action:none; background: radial-gradient(ellipse at center, rgba(255,255,255,0.03), rgba(0,0,0,0) 60%); }
 
-.hud { position:absolute; left:12px; top:10px; font-size:14px; letter-spacing:.5px; text-shadow:0 0 6px rgba(0,0,0,.8); filter: drop-shadow(var(--glow)); }
-.hud .line { margin:2px 0; }
-.tiny { font-size:12px; color:#bbb; position:absolute; top:10px; right:12px; }
+.hud{ position:absolute; left:12px; top:10px; font-size:14px; letter-spacing:.5px; text-shadow:0 0 6px rgba(0,0,0,.8); filter:drop-shadow(var(--glow)); }
+.hud .line{ margin:2px 0; }
+.tiny{ font-size:12px; color:#bbb; position:absolute; top:10px; right:12px; }
 
-.toolbar { position:absolute; top:10px; left:50%; transform:translateX(-50%); display:flex; gap:8px; }
-.btn { background:var(--ui); border:1px solid var(--ui-border); color:var(--fg); border-radius:12px; padding:8px 12px; min-width:56px; text-align:center; user-select:none; touch-action:manipulation; }
-.btn:active { background:rgba(255,255,255,.18); }
+.toolbar{ position:absolute; top:10px; left:50%; transform:translateX(-50%); display:flex; gap:8px; }
+.btn{ background:var(--ui); border:1px solid var(--ui-border); color:var(--fg); border-radius:12px; padding:8px 12px; min-width:56px; text-align:center; user-select:none; touch-action:manipulation; }
+.btn.big{ padding:12px 18px; font-size:18px; }
+.btn:active{ background:rgba(255,255,255,.18); }
 
-.leftpad { position:absolute; bottom:14px; left:14px; display:flex; gap:8px; }
-.rightpad { position:absolute; bottom:14px; right:14px; display:flex; gap:8px; }
+.leftpad{ position:absolute; bottom:14px; left:14px; display:flex; gap:8px; }
+.rightpad{ position:absolute; bottom:14px; right:14px; display:flex; gap:8px; }
 
-/* Themes */
-.theme-neon { --bg:#050510; --fg:#eaffff; --ui:rgba(139,233,253,.12); --ui-border:rgba(139,233,253,.35); }
-.theme-amber { --bg:#0d0a00; --fg:#fff3d6; --ui:rgba(255,193,7,.12); --ui-border:rgba(255,193,7,.35); }
+.theme-neon{ --bg:#050510; --fg:#eaffff; --ui:rgba(139,233,253,.12); --ui-border:rgba(139,233,253,.35); }
+.theme-amber{ --bg:#0d0a00; --fg:#fff3d6; --ui:rgba(255,193,7,.12); --ui-border:rgba(255,193,7,.35); }
+
+.overlay{ position:absolute; inset:0; background:rgba(0,0,0,.6); display:flex; align-items:center; justify-content:center; }
+.panel{ background:rgba(10,10,20,.9); padding:24px; border:1px solid rgba(255,255,255,.2); border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,.5); text-align:center; }
+.log{ margin-top:10px; font-size:12px; color:#ccc; max-height:120px; overflow:auto; text-align:left; background:rgba(255,255,255,.05); padding:8px; border-radius:8px; }

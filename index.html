@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Asteroids — Fullscreen Sprites</title>
+  <title>Asteroids — Start Fix</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="theme-neon">
@@ -37,9 +37,17 @@
       <button class="btn" id="btnFire" aria-label="Fire">●</button>
       <button class="btn" id="btnHyp" aria-label="Hyperspace">★</button>
     </div>
+
+    <div id="overlay" class="overlay">
+      <div class="panel">
+        <h1>Asteroids</h1>
+        <p>Press Start to play.</p>
+        <button id="btnStart" class="btn big">Start</button>
+        <pre id="log" class="log" aria-live="polite"></pre>
+      </div>
+    </div>
   </div>
 
-  <script type="module" src="sprites.js"></script>
   <script type="module" src="main.js"></script>
 </body>
 </html>

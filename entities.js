@@ -1,15 +1,14 @@
-// entities.js — sprite-based entities
+// entities.js
 import { TAU, rand, randi, wrap, circleHit, beep } from './engine.js';
 import { SPRITES } from './sprites.js';
 
 function drawSprite(g, name, x, y, a=0, scale=1){
+  if(!SPRITES.image) return; // not loaded yet
   const [cx, cy] = SPRITES.frames[name];
   const s = SPRITES.size;
   const sx = cx*s, sy = cy*s;
   const hw = (s*scale)/2, hh = (s*scale)/2;
-  g.save();
-  g.translate(x, y);
-  g.rotate(a);
+  g.save(); g.translate(x, y); g.rotate(a);
   g.drawImage(SPRITES.image, sx, sy, s, s, -hw, -hh, s*scale, s*scale);
   g.restore();
 }
@@ -20,12 +19,8 @@ export class Bullet{
     this.x=x; this.y=y; this.vx=Math.cos(ang)*speed; this.vy=Math.sin(ang)*speed;
     this.life=0.8; this.r=2; this.a=ang;
   }
-  update(dt, W, H){
-    this.x = wrap(this.x + this.vx*dt, W);
-    this.y = wrap(this.y + this.vy*dt, H);
-    this.life -= dt;
-  }
-  draw(g){ drawSprite(g, 'bullet', this.x, this.y, 0, 0.25); }
+  update(dt, W, H){ this.x=wrap(this.x+this.vx*dt,W); this.y=wrap(this.y+this.vy*dt,H); this.life-=dt; }
+  draw(g){ drawSprite(g,'bullet',this.x,this.y,0,0.25); }
   get dead(){ return this.life<=0; }
 }
 
@@ -39,24 +34,13 @@ export class Particle{
 export class Asteroid{
   constructor(x,y,sz=3){
     this.x=x; this.y=y; this.sz=sz;
-    const speed = rand(20, 60) + (3-sz)*25;
-    const ang = rand(0, TAU);
-    this.vx = Math.cos(ang)*speed; this.vy = Math.sin(ang)*speed;
-    this.r = 50 * (sz/3); // matches sprite scale when drawn at 1.0
-    this.rot = rand(-1,1)*0.8;
-    this.a = rand(0, TAU);
+    const speed = rand(20,60) + (3-sz)*25; const ang = rand(0,TAU);
+    this.vx=Math.cos(ang)*speed; this.vy=Math.sin(ang)*speed;
+    this.r = 50 * (sz/3); this.rot=rand(-1,1)*0.8; this.a=rand(0,TAU);
   }
   update(dt, W, H){ this.x=wrap(this.x+this.vx*dt,W); this.y=wrap(this.y+this.vy*dt,H); this.a+=this.rot*dt; }
-  draw(g){
-    const name = this.sz===3?'asteroid_big': this.sz===2?'asteroid_med':'asteroid_small';
-    drawSprite(g, name, this.x, this.y, this.a, 1.0);
-  }
-  split(){
-    if(this.sz>1){
-      return [new Asteroid(this.x,this.y,this.sz-1), new Asteroid(this.x,this.y,this.sz-1)];
-    }
-    return [];
-  }
+  draw(g){ const name=this.sz===3?'asteroid_big':this.sz===2?'asteroid_med':'asteroid_small'; drawSprite(g,name,this.x,this.y,this.a,1.0); }
+  split(){ return this.sz>1 ? [new Asteroid(this.x,this.y,this.sz-1), new Asteroid(this.x,this.y,this.sz-1)] : []; }
 }
 
 export class Ship{
@@ -70,10 +54,7 @@ export class Ship{
     this.x=wrap(this.x+this.vx*dt,W); this.y=wrap(this.y+this.vy*dt,H);
     if(this.inv>0) this.inv-=dt;
   }
-  draw(g){
-    drawSprite(g, 'ship', this.x, this.y, this.a, 0.7);
-    if(this.thrust){ drawSprite(g, 'flame', this.x, this.y, this.a, 0.7); }
-  }
+  draw(g){ drawSprite(g,'ship',this.x,this.y,this.a,0.7); if(this.thrust){ drawSprite(g,'flame',this.x,this.y,this.a,0.7); } }
   fire(bullets){ bullets.push(new Bullet(this.x+Math.cos(this.a)*18, this.y+Math.sin(this.a)*18, this.a)); beep(900,0.04,"square",0.02); }
   hyperspace(W,H){ this.x=rand(0,W); this.y=rand(0,H); this.vx=0; this.vy=0; this.inv=1.0; beep(300,0.08,"sine",0.03); }
 }

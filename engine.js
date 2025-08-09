@@ -1,4 +1,4 @@
-// engine.js — helpers + audio + fullscreen
+// engine.js
 export const TAU = Math.PI * 2;
 export const rand  = (min, max)=>Math.random()*(max-min)+min;
 export const randi = (min, max)=>Math.floor(rand(min,max));
